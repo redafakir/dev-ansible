@@ -1,0 +1,22 @@
+---
+- hosts: centos
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: lancement de mise a jour
+      yum: name=* state=latest
+    - name: install ntp package
+      yum:
+        name: ntp
+        state: latest
+    - name: copy a file
+      copy:
+        src: /home/stagiaire/toto1
+        dest: /home/stagiaire/toto1
+
+    - name: run date
+      shell: date
+      register: result
+    - debug:
+        msg: "date {{ result }}"
